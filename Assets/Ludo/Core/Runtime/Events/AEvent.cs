@@ -2,7 +2,7 @@ using System;
 
 namespace Ludo.Core.Events
 {
-    public class Event : ABaseEvent
+    public class AEvent : ABaseEvent
     {
         public void AddListener(Action action)
         {
@@ -25,7 +25,7 @@ namespace Ludo.Core.Events
         }
     }
 
-    public class Event<T> : ABaseEvent
+    public abstract class AEvent<T> : ABaseEvent
     {
         public void AddListener(Action<T> action)
         {
@@ -55,7 +55,7 @@ namespace Ludo.Core.Events
         }
     }
 
-    public class Event<T1, T2> : ABaseEvent
+    public abstract class AEvent<T1, T2> : ABaseEvent
     {
         public void AddListener(Action<T1, T2> action)
         {
@@ -89,7 +89,7 @@ namespace Ludo.Core.Events
         }
     }
 
-    public class Event<T1, T2, T3> : ABaseEvent
+    public abstract class AEvent<T1, T2, T3> : ABaseEvent
     {
         public void AddListener(Action<T1, T2, T3> action)
         {
