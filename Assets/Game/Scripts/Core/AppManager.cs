@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Ludo.Core;
+using Ludo.Localization;
 using UnityEngine;
 
 namespace Game.Core
@@ -39,6 +40,13 @@ namespace Game.Core
         protected override void HandleInitialization()
         {
             base.HandleInitialization();
+            InitializeLocalization();
+        }
+        
+        
+        private void InitializeLocalization()
+        {
+            LocalizationManager.Read();
         }
 
     }
