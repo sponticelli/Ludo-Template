@@ -2,6 +2,10 @@ using System;
 
 namespace Ludo.Core.Events
 {
+    /// <summary>
+    ///     Convenience binder that exposes strongly typed helper methods for
+    ///     binding and unbinding delegates to <see cref="AEvent" /> instances.
+    /// </summary>
     public class EventBinder : ABaseEventBinder
     {
         public void Bind(AEvent e, Action action)

@@ -2,6 +2,9 @@ using System;
 
 namespace Ludo.Core.Events
 {
+    /// <summary>
+    ///     Event with no parameters.
+    /// </summary>
     public class AEvent : ABaseEvent
     {
         public void AddListener(Action action)
@@ -25,6 +28,9 @@ namespace Ludo.Core.Events
         }
     }
 
+    /// <summary>
+    ///     Event with a single parameter of type <typeparamref name="T" />.
+    /// </summary>
     public abstract class AEvent<T> : ABaseEvent
     {
         public void AddListener(Action<T> action)
@@ -55,6 +61,9 @@ namespace Ludo.Core.Events
         }
     }
 
+    /// <summary>
+    ///     Event with two parameters of types <typeparamref name="T1" /> and <typeparamref name="T2" />.
+    /// </summary>
     public abstract class AEvent<T1, T2> : ABaseEvent
     {
         public void AddListener(Action<T1, T2> action)
@@ -89,6 +98,10 @@ namespace Ludo.Core.Events
         }
     }
 
+    /// <summary>
+    ///     Event with three parameters of types <typeparamref name="T1" />, <typeparamref name="T2" />
+    ///     and <typeparamref name="T3" />.
+    /// </summary>
     public abstract class AEvent<T1, T2, T3> : ABaseEvent
     {
         public void AddListener(Action<T1, T2, T3> action)
