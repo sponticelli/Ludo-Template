@@ -22,7 +22,7 @@ namespace Ludo.Localization
 
         public const string ResourcesFolder = "Localization";
 
-        public const string LocFolder = "Assets/Resources/" + ResourcesFolder;
+        public const string LocFolder = "Assets/Game/Resources/" + ResourcesFolder;
 
         private static readonly Regex MatchRegex = new Regex("\".+?\"");
 

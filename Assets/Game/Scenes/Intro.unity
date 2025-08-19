@@ -530,6 +530,7 @@ GameObject:
   - component: {fileID: 1077832940}
   - component: {fileID: 1077832942}
   - component: {fileID: 1077832941}
+  - component: {fileID: 1077832943}
   m_Layer: 5
   m_Name: LoadingLabel
   m_TagString: Untagged
@@ -576,10 +577,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: loading...
+  m_text: menu_loading
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b72603bf518db4bcab2f9c037608561b, type: 2}
+  m_sharedMaterial: {fileID: -6990571969394685720, guid: b72603bf518db4bcab2f9c037608561b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -655,6 +656,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1077832939}
   m_CullTransparentMesh: 1
+--- !u!114 &1077832943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077832939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d347e62a09884e6a99e19222d858eb6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tmpText: {fileID: 1077832941}
+  localizationKey: menu_loading
+  fontSettings: {fileID: 11400000, guid: 10fd26f883eca4a278442dd2056144b2, type: 2}
 --- !u!1 &1441996432
 GameObject:
   m_ObjectHideFlags: 0
