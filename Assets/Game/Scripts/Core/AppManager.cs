@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Platforms;
+using Ludo.Audio;
 using Ludo.Core;
 using Ludo.Localization;
 using Ludo.Save;
@@ -18,6 +19,8 @@ namespace Game.Core
         public PlatformManager Platform { get; private set; }
         public TimeManager Time { get; private set; }
         public ASaveManager Save { get; private set; }
+        public AudioManager Audio { get; private set; }
+        public AudioVolumeManager AudioVolume { get; private set; }
         
         
         #region Modules
@@ -104,6 +107,7 @@ namespace Game.Core
             InitializePlatform();
             InitializeTime();
             InitializeSave();
+            InitializeAudio();
             InitializeLocalization();
         }
         
@@ -130,6 +134,35 @@ namespace Game.Core
 
             Save = CreateChildModule<FileSystemSaveManager>();
             AddModule(Save);
+        }
+        
+        private void InitializeAudio()
+        {
+            if (HasModule<AudioManager>()) return;
+
+            // Load audio configuration from Resources
+            AudioConfig audioConfig = Resources.Load<AudioConfig>("Audio/AudioConfig");
+            if (audioConfig == null)
+            {
+                Debug.LogWarning("AppManager: AudioConfig not found at Resources/Audio/AudioConfig. Creating AudioManager without configuration.");
+            }
+
+            // Create AudioVolumeManager if enabled in config
+            AudioVolumeManager volumeManager = null;
+            if (audioConfig != null && audioConfig.EnableVolumeManager)
+            {
+                AudioVolume = CreateChildModule<AudioVolumeManager>();
+                volumeManager = AudioVolume;
+                AddModule(AudioVolume);
+            }
+
+            // Create AudioManager
+            Audio = CreateChildModule<AudioManager>();
+            if (audioConfig != null)
+            {
+                Audio.Initialize(audioConfig, volumeManager);
+            }
+            AddModule(Audio);
         }
         
         private void InitializeLocalization()
