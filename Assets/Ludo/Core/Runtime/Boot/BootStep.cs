@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Core.Boot
+namespace Ludo.Core.Boot
 {
     /// <summary>
     /// Base class for ScriptableObject boot steps.

@@ -5,7 +5,7 @@ using Ludo.Localization;
 using Ludo.Pools.Runtime;
 using Ludo.Scenes;
 using UnityEngine;
-using Game.Core.Boot;
+using Ludo.Core.Boot;
 
 namespace Game.Core
 {

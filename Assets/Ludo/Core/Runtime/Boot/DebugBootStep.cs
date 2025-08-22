@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace Game.Core.Boot
+namespace Ludo.Core.Boot
 {
     /// <summary>
     /// Simple boot step that logs a message for debugging purposes.
     /// </summary>
-    [CreateAssetMenu(menuName = "Game/Boot/DebugBootStep")]
+    [CreateAssetMenu(menuName = "Ludo/Boot/DebugBootStep")]
     public class DebugBootStep : BootStep
     {
         /// <summary>

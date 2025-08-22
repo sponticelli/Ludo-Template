@@ -1,4 +1,4 @@
-namespace Game.Core.Boot
+namespace Ludo.Core.Boot
 {
     /// <summary>
     /// Represents a discrete step in the application's boot sequence.
