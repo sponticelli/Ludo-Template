@@ -1,3 +1,4 @@
+#nullable enable
 using UnityEngine;
 
 namespace Ludo.Scenes.Flow
@@ -9,7 +10,7 @@ namespace Ludo.Scenes.Flow
     public class StateMachine<TEvent> where TEvent : struct
     {
         FlowState<TEvent>? _current;
-        Awaitable _transition; // ensures sequential transitions
+        private Awaitable? _transition; // ensures sequential transitions
 
         /// <summary>
         /// The currently active state.
@@ -35,7 +36,8 @@ namespace Ludo.Scenes.Flow
 
             async Awaitable Run()
             {
-                await pending; // wait for any transition already in progress
+                if (pending != null)
+                    await pending; // wait for any transition already in progress
                 if (_current == null)
                     return;
 
@@ -53,6 +55,7 @@ namespace Ludo.Scenes.Flow
         /// Updates the active state. Should be called once per frame.
         /// </summary>
         public void Tick() => _current?.Tick();
+
     }
 }
 
