@@ -6,6 +6,8 @@ using Ludo.Pools.Runtime;
 using Ludo.Scenes;
 using UnityEngine;
 using Ludo.Core.Boot;
+using Ludo.Core.Services;
+using System;
 
 namespace Game.Core
 {
@@ -52,6 +54,9 @@ namespace Game.Core
             ServiceLocator.Register<ISceneService>(new SceneService());
 
             ServiceLocator.Register<IPoolService>(new PoolService());
+
+            var audioService = new AudioService(globalConfig.SfxVolume, globalConfig.LoopVolume);
+            ServiceLocator.Register<IAudioService>(audioService);
         }
 
         /// <summary>
@@ -67,9 +72,15 @@ namespace Game.Core
         /// </summary>
         protected override void TeardownServices()
         {
-            var poolService = ServiceLocator.Get<IPoolService>();
-            poolService?.Clear();
-            ServiceLocator.Unregister<IPoolService>();
+            if (ServiceLocator.TryGet<IAudioService>(out var audioService) && audioService is IDisposable disposable)
+                disposable.Dispose();
+            ServiceLocator.Unregister<IAudioService>();
+
+            if (ServiceLocator.TryGet<IPoolService>(out var poolService))
+            {
+                poolService.Clear();
+                ServiceLocator.Unregister<IPoolService>();
+            }
         }
 
     }
