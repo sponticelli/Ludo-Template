@@ -5,7 +5,9 @@ using Ludo.Localization;
 using Ludo.Pools.Runtime;
 using Ludo.Scenes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Ludo.Core.Boot;
+using Ludo.Core.Services;
 
 namespace Game.Core
 {
@@ -36,6 +38,28 @@ namespace Game.Core
             base.Awake();
             Application.targetFrameRate = globalConfig.TargetFPS;
         }
+
+        private void OnEnable()
+        {
+            SceneManager.activeSceneChanged += OnSceneChanged;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.activeSceneChanged -= OnSceneChanged;
+        }
+
+        private void OnSceneChanged(Scene oldScene, Scene newScene)
+        {
+            if (ServiceLocator.TryGet<ISaveStore>(out var store))
+                store.Flush();
+        }
+
+        private void OnApplicationQuit()
+        {
+            if (ServiceLocator.TryGet<ISaveStore>(out var store))
+                store.Flush();
+        }
         
 
         /// <summary>
@@ -52,6 +76,8 @@ namespace Game.Core
             ServiceLocator.Register<ISceneService>(new SceneService());
 
             ServiceLocator.Register<IPoolService>(new PoolService());
+
+            ServiceLocator.Register<ISaveStore>(new PlayerPrefsSaveStore());
         }
 
         /// <summary>
@@ -67,6 +93,12 @@ namespace Game.Core
         /// </summary>
         protected override void TeardownServices()
         {
+            if (ServiceLocator.TryGet<ISaveStore>(out var saveStore))
+            {
+                saveStore.Flush();
+                ServiceLocator.Unregister<ISaveStore>();
+            }
+
             var poolService = ServiceLocator.Get<IPoolService>();
             poolService?.Clear();
             ServiceLocator.Unregister<IPoolService>();
