@@ -16,3 +16,5 @@ MonoBehaviour:
   targetFPS: 60
   localizationTables:
   - {fileID: 11400000, guid: 4a05e07070abc43deb4180dc2248f5a1, type: 2}
+  sfxVolume: 1
+  loopVolume: 1
