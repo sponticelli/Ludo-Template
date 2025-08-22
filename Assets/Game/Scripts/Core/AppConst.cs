@@ -9,5 +9,7 @@ namespace Game.Core
         /// Execution order applied to <see cref="AppRoot"/>.
         /// </summary>
         public const int AppRootExecutionOrder = -1000;
+        
+        public const int SceneFlowControllerExecutionOrder = AppRootExecutionOrder + 1;
     }
 }

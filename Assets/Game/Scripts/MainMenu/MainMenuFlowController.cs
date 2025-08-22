@@ -1,21 +1,13 @@
-using Ludo.Core;
-using Ludo.Scenes;
+using Game.Core;
 using Ludo.Scenes.Flow;
 using UnityEngine;
 
 namespace Game.MainMenu
 {
-    public enum MainMenuEvent
-    {
-        StartGame,
-        ShowCredits,
-        ShowSettings,
-        Back
-    }
-
     /// <summary>
     /// Orchestrates the flow of the main menu using Ludo's scene flow framework.
     /// </summary>
+    [DefaultExecutionOrder(AppConst.SceneFlowControllerExecutionOrder)]
     public class MainMenuFlowController : SceneFlowController<MainMenuEvent>
     {
         [Header("Pages")]
@@ -23,8 +15,31 @@ namespace Game.MainMenu
         [SerializeField] private GameObject creditsPage;
         [SerializeField] private GameObject settingsPage;
 
+        private void Awake()
+        {
+            Debug.Log($"MainMenuFlowController Awake - mainPage: {mainPage?.name ?? "null"}, creditsPage: {creditsPage?.name ?? "null"}, settingsPage: {settingsPage?.name ?? "null"}");
+        }
+
         protected override FlowState<MainMenuEvent> CreateInitialState()
         {
+            Debug.Log($"CreateInitialState called - mainPage: {mainPage?.name ?? "null"}, creditsPage: {creditsPage?.name ?? "null"}, settingsPage: {settingsPage?.name ?? "null"}");
+            
+            if (mainPage == null)
+            {
+                Debug.LogError("Main page is not set in MainMenuFlowController");
+                return null!;
+            }
+            
+            if (creditsPage == null)
+            {
+                Debug.LogWarning("Credits page is not set in MainMenuFlowController");
+            }
+            
+            if (settingsPage == null)
+            {
+                Debug.LogWarning("Settings page is not set in MainMenuFlowController");
+            }
+            
             return new HomeState(this, mainPage, creditsPage, settingsPage);
         }
 
@@ -33,116 +48,5 @@ namespace Game.MainMenu
         public void ShowCredits() => Machine.Dispatch(MainMenuEvent.ShowCredits);
         public void ShowSettings() => Machine.Dispatch(MainMenuEvent.ShowSettings);
         public void Back() => Machine.Dispatch(MainMenuEvent.Back);
-    }
-
-    /// <summary>
-    /// Default state showing the primary menu options.
-    /// </summary>
-    sealed class HomeState : FlowState<MainMenuEvent>
-    {
-        readonly GameObject _main;
-        readonly GameObject _credits;
-        readonly GameObject _settings;
-
-        public HomeState(MainMenuFlowController controller, GameObject main, GameObject credits, GameObject settings)
-            : base(controller)
-        {
-            _main = main;
-            _credits = credits;
-            _settings = settings;
-        }
-
-        public override Awaitable Enter()
-        {
-            _main?.SetActive(true);
-            _credits?.SetActive(false);
-            _settings?.SetActive(false);
-            return default;
-        }
-
-        public override FlowState<MainMenuEvent>? Handle(MainMenuEvent evt)
-        {
-            switch (evt)
-            {
-                case MainMenuEvent.StartGame:
-                {
-                    var sceneService = ServiceLocator.Get<ISceneService>();
-                    sceneService.Load("Game");
-                    return this;
-                }
-                case MainMenuEvent.ShowCredits:
-                    return new CreditsState((MainMenuFlowController)Controller, _main, _credits, _settings);
-                case MainMenuEvent.ShowSettings:
-                    return new SettingsState((MainMenuFlowController)Controller, _main, _credits, _settings);
-            }
-
-            return this;
-        }
-    }
-
-    /// <summary>
-    /// State representing the credits sub page.
-    /// </summary>
-    sealed class CreditsState : FlowState<MainMenuEvent>
-    {
-        readonly GameObject _main;
-        readonly GameObject _credits;
-        readonly GameObject _settings;
-
-        public CreditsState(MainMenuFlowController controller, GameObject main, GameObject credits, GameObject settings)
-            : base(controller)
-        {
-            _main = main;
-            _credits = credits;
-            _settings = settings;
-        }
-
-        public override Awaitable Enter()
-        {
-            _main?.SetActive(false);
-            _credits?.SetActive(true);
-            _settings?.SetActive(false);
-            return default;
-        }
-
-        public override FlowState<MainMenuEvent>? Handle(MainMenuEvent evt)
-        {
-            if (evt == MainMenuEvent.Back)
-                return new HomeState((MainMenuFlowController)Controller, _main, _credits, _settings);
-            return this;
-        }
-    }
-
-    /// <summary>
-    /// State representing the settings sub page.
-    /// </summary>
-    sealed class SettingsState : FlowState<MainMenuEvent>
-    {
-        readonly GameObject _main;
-        readonly GameObject _credits;
-        readonly GameObject _settings;
-
-        public SettingsState(MainMenuFlowController controller, GameObject main, GameObject credits, GameObject settings)
-            : base(controller)
-        {
-            _main = main;
-            _credits = credits;
-            _settings = settings;
-        }
-
-        public override Awaitable Enter()
-        {
-            _main?.SetActive(false);
-            _credits?.SetActive(false);
-            _settings?.SetActive(true);
-            return default;
-        }
-
-        public override FlowState<MainMenuEvent>? Handle(MainMenuEvent evt)
-        {
-            if (evt == MainMenuEvent.Back)
-                return new HomeState((MainMenuFlowController)Controller, _main, _credits, _settings);
-            return this;
-        }
     }
 }

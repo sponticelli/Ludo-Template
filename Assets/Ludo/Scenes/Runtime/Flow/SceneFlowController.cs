@@ -32,8 +32,11 @@ namespace Ludo.Scenes.Flow
         /// </summary>
         protected async void Start()
         {
+            Debug.Log("SceneFlowController Start");
             var initial = CreateInitialState();
+            Debug.Log("SceneFlowController SetInitialState");
             await _stateMachine.SetInitialState(initial);
+            Debug.Log("SceneFlowController Start done");
         }
 
         /// <summary>
