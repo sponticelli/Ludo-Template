@@ -6,6 +6,7 @@ using Ludo.Pools.Runtime;
 using Ludo.Scenes;
 using UnityEngine;
 using Ludo.Core.Boot;
+using Ludo.Core.Services;
 
 namespace Game.Core
 {
@@ -52,6 +53,8 @@ namespace Game.Core
             ServiceLocator.Register<ISceneService>(new SceneService());
 
             ServiceLocator.Register<IPoolService>(new PoolService());
+
+            ServiceLocator.Register<IInputService>(new InputService());
         }
 
         /// <summary>
@@ -70,6 +73,10 @@ namespace Game.Core
             var poolService = ServiceLocator.Get<IPoolService>();
             poolService?.Clear();
             ServiceLocator.Unregister<IPoolService>();
+
+            var inputService = ServiceLocator.Get<IInputService>();
+            inputService?.Dispose();
+            ServiceLocator.Unregister<IInputService>();
         }
 
     }
