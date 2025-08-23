@@ -11,6 +11,12 @@ namespace Ludo.Audio
     public interface IAudioHandle
     {
         public bool IsPlaying { get; }
-        public void Stop();   
+        public void Stop();
+    }
+
+    public interface IVolumeControlledAudioHandle : IAudioHandle
+    {
+        public void SetVolume(float volume);
+        public float GetVolume();
     }
 }

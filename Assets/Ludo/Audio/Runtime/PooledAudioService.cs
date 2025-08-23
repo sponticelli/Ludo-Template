@@ -296,7 +296,7 @@ namespace Ludo.Audio
             return (_availableAudioSources.Count, _totalCreatedSources, _activeLoops.Count, _oneShotSources.Count);
         }
 
-        sealed class PooledLoopHandle : IAudioHandle
+        sealed class PooledLoopHandle : IVolumeControlledAudioHandle
         {
             PooledAudioService _service;
             LoopInstance _instance;
@@ -315,6 +315,26 @@ namespace Ludo.Audio
                 _service?.Release(_instance);
                 _service = null;
                 _instance = null;
+            }
+
+            /// <summary>
+            /// Sets the volume of this specific audio handle.
+            /// </summary>
+            public void SetVolume(float volume)
+            {
+                if (_instance?.Source != null)
+                {
+                    _instance.Volume = Mathf.Clamp01(volume);
+                    _instance.Source.volume = _instance.Volume;
+                }
+            }
+
+            /// <summary>
+            /// Gets the current volume of this audio handle.
+            /// </summary>
+            public float GetVolume()
+            {
+                return _instance?.Volume ?? 0f;
             }
         }
 
