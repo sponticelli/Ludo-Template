@@ -5,9 +5,8 @@ using Ludo.Localization;
 using Ludo.Pools.Runtime;
 using Ludo.Scenes;
 using UnityEngine;
-using Ludo.Core.Boot;
-using Ludo.Core.Services;
 using System;
+using Ludo.Audio;
 
 namespace Game.Core
 {
@@ -55,7 +54,7 @@ namespace Game.Core
 
             ServiceLocator.Register<IPoolService>(new PoolService());
 
-            var audioService = new AudioService(globalConfig.SfxVolume, globalConfig.LoopVolume);
+            var audioService = new PooledAudioService(globalConfig.PooledAudioServiceConfig);
             ServiceLocator.Register<IAudioService>(audioService);
         }
 

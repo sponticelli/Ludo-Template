@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ludo.Audio;
 using Ludo.Localization;
 using UnityEngine;
 
@@ -22,17 +23,13 @@ namespace Game.Core.Data
         [SerializeField] private LocalizedTable[] localizationTables;
         public IEnumerable<LocalizedTable> LocalizationTables => localizationTables;
         #endregion
-
+        
         #region Audio Config
-        [Header("Audio")]
-        [Range(0f, 1f)]
-        [SerializeField] private float sfxVolume = 1f;
+        [SerializeField]
+        private PooledAudioServiceConfig pooledAudioServiceConfig;
+        public PooledAudioServiceConfig PooledAudioServiceConfig => pooledAudioServiceConfig;
 
-        [Range(0f, 1f)]
-        [SerializeField] private float loopVolume = 1f;
 
-        public float SfxVolume => sfxVolume;
-        public float LoopVolume => loopVolume;
         #endregion
     }
 }

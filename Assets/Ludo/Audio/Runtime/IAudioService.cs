@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Ludo.Core.Services
+namespace Ludo.Audio
 {
     public interface IAudioService
     {
