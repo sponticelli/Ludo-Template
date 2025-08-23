@@ -26,8 +26,8 @@ namespace Game.Core.Data
         
         #region Audio Config
         [SerializeField]
-        private PooledAudioServiceConfig pooledAudioServiceConfig;
-        public PooledAudioServiceConfig PooledAudioServiceConfig => pooledAudioServiceConfig;
+        private MultiChannelAudioServiceConfig multiChannelAudioServiceConfig;
+        public MultiChannelAudioServiceConfig MultiChannelAudioServiceConfig => multiChannelAudioServiceConfig;
 
 
         #endregion

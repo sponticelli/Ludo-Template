@@ -9,9 +9,9 @@ namespace Ludo.Audio
     /// Multi-channel audio service that manages separate PooledAudioService instances
     /// for different audio categories with independent volume control and fade capabilities.
     /// </summary>
-    public sealed class MultiChannelAudioService : IAudioService, IDisposable
+    public sealed class MultiChannelAudioService : IMultiChannelAudioService
     {
-        private readonly Dictionary<AudioChannel, PooledAudioService> _channels = new();
+        private readonly Dictionary<AudioChannel, IPooledAudioService> _channels = new();
         private readonly Dictionary<AudioChannel, float> _channelVolumes = new();
         private readonly MultiChannelAudioServiceConfig _config;
         private readonly List<FadeOperation> _activeFades = new();
@@ -270,14 +270,28 @@ namespace Ludo.Audio
 
             foreach (var channel in _channels.Values)
             {
-                channel?.Dispose();
+                try
+                {
+                    channel?.Dispose();
+                }
+                catch (MissingReferenceException)
+                {
+                    // Channel objects already destroyed, ignore
+                }
             }
             _channels.Clear();
 
             // Clean up fade updater
             if (_fadeUpdaterObject != null)
             {
-                UnityEngine.Object.Destroy(_fadeUpdaterObject);
+                try
+                {
+                    UnityEngine.Object.Destroy(_fadeUpdaterObject);
+                }
+                catch (MissingReferenceException)
+                {
+                    // Object already destroyed, ignore
+                }
             }
         }
 

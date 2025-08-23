@@ -8,10 +8,10 @@ using Object = UnityEngine.Object;
 namespace Ludo.Audio
 {
     /// <summary>
-    /// Improved implementation of <see cref="IAudioService"/> that uses AudioSource pooling
-    /// to reduce GameObject creation/destruction overhead for looping audio.
+    /// Improved implementation of <see cref="IPooledAudioService"/> that uses AudioSource pooling
+    /// to reduce GameObject creation/destruction overhead for both one-shot and looping audio.
     /// </summary>
-    public sealed class PooledAudioService : IAudioService, IDisposable
+    public sealed class PooledAudioService : IPooledAudioService
     {
         private readonly Transform _root;
         private readonly PooledAudioServiceConfig _config;
@@ -42,7 +42,7 @@ namespace Ludo.Audio
             _config = config ?? new PooledAudioServiceConfig();
 
             // Create root GameObject
-            var go = new GameObject("Pooled Audio Service");
+            var go = new GameObject(_config.mixerGroup.name + "_AudioService");
             if (_config.hideInHierarchy) go.hideFlags = HideFlags.HideInHierarchy;
             Object.DontDestroyOnLoad(go);
             _root = go.transform;
@@ -70,7 +70,7 @@ namespace Ludo.Audio
         /// </summary>
         private AudioSource CreatePooledAudioSource()
         {
-            var sourceGO = new GameObject($"PooledAudioSource_{_totalCreatedSources}");
+            var sourceGO = new GameObject($"{_config.mixerGroup.name}_AudioSource_{_totalCreatedSources}");
             sourceGO.transform.SetParent(_root, false);
 
             var source = sourceGO.AddComponent<AudioSource>();
@@ -255,10 +255,17 @@ namespace Ludo.Audio
             {
                 if (loop.Source != null)
                 {
-                    loop.Source.Stop();
-                    if (!loop.IsPooled)
+                    try
                     {
-                        Object.Destroy(loop.Source.gameObject);
+                        loop.Source.Stop();
+                        if (!loop.IsPooled && loop.Source.gameObject != null)
+                        {
+                            Object.Destroy(loop.Source.gameObject);
+                        }
+                    }
+                    catch (MissingReferenceException)
+                    {
+                        // Object already destroyed, ignore
                     }
                 }
             }
@@ -269,8 +276,15 @@ namespace Ludo.Audio
             {
                 if (oneShot.Source != null)
                 {
-                    oneShot.Source.Stop();
-                    // One-shot sources are always pooled, so they'll be cleaned up with the pool
+                    try
+                    {
+                        oneShot.Source.Stop();
+                        // One-shot sources are always pooled, so they'll be cleaned up with the pool
+                    }
+                    catch (MissingReferenceException)
+                    {
+                        // Object already destroyed, ignore
+                    }
                 }
             }
             _oneShotSources.Clear();
@@ -279,13 +293,34 @@ namespace Ludo.Audio
             foreach (var source in _allPooledSources)
             {
                 if (source != null)
-                    Object.Destroy(source.gameObject);
+                {
+                    try
+                    {
+                        if (source.gameObject != null)
+                            Object.Destroy(source.gameObject);
+                    }
+                    catch (MissingReferenceException)
+                    {
+                        // Object already destroyed, ignore
+                    }
+                }
             }
             _availableAudioSources.Clear();
             _allPooledSources.Clear();
 
             // Destroy the root GameObject
-            Object.Destroy(_root.gameObject);
+            if (_root != null)
+            {
+                try
+                {
+                    if (_root.gameObject != null)
+                        Object.Destroy(_root.gameObject);
+                }
+                catch (MissingReferenceException)
+                {
+                    // Object already destroyed, ignore
+                }
+            }
         }
 
         /// <summary>

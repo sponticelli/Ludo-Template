@@ -54,8 +54,8 @@ namespace Game.Core
 
             ServiceLocator.Register<IPoolService>(new PoolService());
 
-            var audioService = new PooledAudioService(globalConfig.PooledAudioServiceConfig);
-            ServiceLocator.Register<IAudioService>(audioService);
+            var audioService = new MultiChannelAudioService(globalConfig.MultiChannelAudioServiceConfig);
+            ServiceLocator.Register<IMultiChannelAudioService>(audioService);
         }
 
         /// <summary>
