@@ -1,4 +1,5 @@
 #nullable enable
+using Game.UI;
 using Ludo.Scenes.Flow;
 using UnityEngine;
 
@@ -10,10 +11,10 @@ namespace Game.MainMenu
     internal sealed class CreditsState : FlowState<MainMenuEvent>
     {
         private readonly GameObject _main;
-        private readonly GameObject _credits;
-        private readonly GameObject _settings;
+        private readonly UIPopup _credits;
+        private readonly UIPopup _settings;
 
-        public CreditsState(MainMenuFlowController controller, GameObject main, GameObject credits, GameObject settings)
+        public CreditsState(MainMenuFlowController controller, GameObject main, UIPopup credits, UIPopup settings)
             : base(controller)
         {
             _main = main;
@@ -23,9 +24,14 @@ namespace Game.MainMenu
 
         public override Awaitable Enter()
         {
-            _main?.SetActive(false);
-            _credits?.SetActive(true);
-            _settings?.SetActive(false);
+            _credits?.Show();
+            _settings?.ImmediateHide();
+            return Awaitable.EndOfFrameAsync();
+        }
+        
+        public override Awaitable Exit()
+        {
+            _credits?.Hide();
             return Awaitable.EndOfFrameAsync();
         }
 

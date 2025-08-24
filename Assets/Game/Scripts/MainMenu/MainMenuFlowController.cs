@@ -1,4 +1,5 @@
 using Game.Core;
+using Game.UI;
 using Ludo.Scenes.Flow;
 using UnityEngine;
 
@@ -12,8 +13,8 @@ namespace Game.MainMenu
     {
         [Header("Pages")]
         [SerializeField] private GameObject mainPage;
-        [SerializeField] private GameObject creditsPage;
-        [SerializeField] private GameObject settingsPage;
+        [SerializeField] private UIPopup creditsPage;
+        [SerializeField] private UIPopup settingsPage;
         
 
         private void Awake()

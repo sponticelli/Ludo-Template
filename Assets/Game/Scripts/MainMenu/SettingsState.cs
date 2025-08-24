@@ -1,4 +1,5 @@
 #nullable enable
+using Game.UI;
 using Ludo.Scenes.Flow;
 using UnityEngine;
 
@@ -10,10 +11,10 @@ namespace Game.MainMenu
     internal sealed class SettingsState : FlowState<MainMenuEvent>
     {
         private readonly GameObject _main;
-        private readonly GameObject _credits;
-        private readonly GameObject _settings;
+        private readonly UIPopup _credits;
+        private readonly UIPopup _settings;
 
-        public SettingsState(MainMenuFlowController controller, GameObject main, GameObject credits, GameObject settings)
+        public SettingsState(MainMenuFlowController controller, GameObject main, UIPopup credits, UIPopup settings)
             : base(controller)
         {
             _main = main;
@@ -24,9 +25,15 @@ namespace Game.MainMenu
         public override Awaitable Enter()
         {
             Debug.Log("SettingsState entered");
-            _main?.SetActive(false);
-            _credits?.SetActive(false);
-            _settings?.SetActive(true);
+            _credits?.ImmediateHide();
+            _settings?.Show();
+            return Awaitable.EndOfFrameAsync();
+        }
+        
+        public override Awaitable Exit()
+        {
+            Debug.Log("SettingsState exited");
+            _settings?.Hide();
             return Awaitable.EndOfFrameAsync();
         }
 
