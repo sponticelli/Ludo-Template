@@ -14,6 +14,7 @@ namespace Game.MainMenu
         [SerializeField] private GameObject mainPage;
         [SerializeField] private GameObject creditsPage;
         [SerializeField] private GameObject settingsPage;
+        
 
         private void Awake()
         {
