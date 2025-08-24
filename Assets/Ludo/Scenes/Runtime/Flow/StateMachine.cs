@@ -44,9 +44,14 @@ namespace Ludo.Scenes.Flow
                 var next = _current.Handle(evt);
                 if (next != null && next != _current)
                 {
+                    Debug.Log($"Transitioning from {_current.GetType().Name} to {next.GetType().Name}");
                     await _current.Exit();
                     _current = next;
+                    Debug.Log($"Entering {next.GetType().Name}");
                     await _current.Enter();
+                } else
+                {
+                    Debug.Log($"No transition from {_current.GetType().Name}");
                 }
             }
         }

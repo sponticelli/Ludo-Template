@@ -16,3 +16,5 @@ MonoBehaviour:
   entries:
   - key: menu_loading
     value: loading...
+  - key: mainmenu_play
+    value: PLAY

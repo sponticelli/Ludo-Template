@@ -23,7 +23,7 @@ namespace Ludo.Scenes.Flow
         /// <summary>
         /// Called when the state becomes active.
         /// </summary>
-        public virtual Awaitable Enter() => default!;
+        public virtual Awaitable Enter() => Awaitable.EndOfFrameAsync();
 
         /// <summary>
         /// Called every frame while this state is active.
@@ -33,7 +33,7 @@ namespace Ludo.Scenes.Flow
         /// <summary>
         /// Called when the state is about to be deactivated.
         /// </summary>
-        public virtual Awaitable Exit() => default!;
+        public virtual Awaitable Exit() => Awaitable.EndOfFrameAsync();
 
         /// <summary>
         /// Attempts to handle an incoming event. Returns the next state if a transition is required,

@@ -29,7 +29,7 @@ namespace Ludo.Core
         {
             if (instance != null)
             {
-                Destroy(this);
+                Destroy(this.gameObject);
                 return;
             }
 

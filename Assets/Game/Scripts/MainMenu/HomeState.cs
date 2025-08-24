@@ -41,6 +41,7 @@ namespace Game.MainMenu
 
         public override FlowState<MainMenuEvent>? Handle(MainMenuEvent evt)
         {
+            Debug.Log($"HomeState handling event {evt}");
             switch (evt)
             {
                 case MainMenuEvent.StartGame:

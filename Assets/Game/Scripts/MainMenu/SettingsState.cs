@@ -23,6 +23,7 @@ namespace Game.MainMenu
 
         public override Awaitable Enter()
         {
+            Debug.Log("SettingsState entered");
             _main?.SetActive(false);
             _credits?.SetActive(false);
             _settings?.SetActive(true);
