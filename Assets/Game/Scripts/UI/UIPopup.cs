@@ -16,6 +16,8 @@ namespace Game.UI
         [SerializeField] private RectTransform _contentRectTransform;
         
         
+        protected bool IsVisible => _canvasGroup.alpha > 0;
+        
         private void Awake()
         {
             if (_canvasGroup == null) _canvasGroup = GetComponent<CanvasGroup>();

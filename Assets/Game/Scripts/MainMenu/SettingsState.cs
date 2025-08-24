@@ -1,4 +1,5 @@
 #nullable enable
+using Game.MainMenu.Credits;
 using Game.UI;
 using Ludo.Scenes.Flow;
 using UnityEngine;
@@ -11,10 +12,10 @@ namespace Game.MainMenu
     internal sealed class SettingsState : FlowState<MainMenuEvent>
     {
         private readonly GameObject _main;
-        private readonly UIPopup _credits;
+        private readonly UICreditsPanel _credits;
         private readonly UIPopup _settings;
 
-        public SettingsState(MainMenuFlowController controller, GameObject main, UIPopup credits, UIPopup settings)
+        public SettingsState(MainMenuFlowController controller, GameObject main, UICreditsPanel credits, UIPopup settings)
             : base(controller)
         {
             _main = main;

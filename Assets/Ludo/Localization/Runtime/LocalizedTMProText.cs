@@ -16,12 +16,19 @@ namespace Ludo.Localization
         private ILocalizationService _localizationService;
         private IEventHub _eventHub;
 
+        
+        public void SetKey(string newKey)
+        {
+            key = newKey;
+            Refresh();
+        }
 
         private void Awake()
         {
             Bind();
             if (textField == null) textField = GetComponent<TMPro.TMP_Text>();
         }
+        
 
         private void OnEnable()
         {

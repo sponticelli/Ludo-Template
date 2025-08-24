@@ -18,3 +18,17 @@ MonoBehaviour:
     value: loading...
   - key: mainmenu_play
     value: PLAY
+  - key: credits_gamedesign
+    value: GAME DESIGN
+  - key: credits_artdirection
+    value: ART DIRECTION
+  - key: credits_code
+    value: CODE
+  - key: credits_sound
+    value: SOUNDS
+  - key: credits_music
+    value: MUSIC
+  - key: credits_family
+    value: THANKS TO MY FAMILY
+  - key: credits_andyou
+    value: 'AND A SPECIAL THANK TO:'

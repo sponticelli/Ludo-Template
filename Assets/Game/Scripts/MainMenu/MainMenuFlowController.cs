@@ -1,4 +1,5 @@
 using Game.Core;
+using Game.MainMenu.Credits;
 using Game.UI;
 using Ludo.Scenes.Flow;
 using UnityEngine;
@@ -13,19 +14,14 @@ namespace Game.MainMenu
     {
         [Header("Pages")]
         [SerializeField] private GameObject mainPage;
-        [SerializeField] private UIPopup creditsPage;
+        [SerializeField] private UICreditsPanel creditsPage;
         [SerializeField] private UIPopup settingsPage;
         
-
-        private void Awake()
-        {
-            Debug.Log($"MainMenuFlowController Awake - mainPage: {mainPage?.name ?? "null"}, creditsPage: {creditsPage?.name ?? "null"}, settingsPage: {settingsPage?.name ?? "null"}");
-        }
+        
 
         protected override FlowState<MainMenuEvent> CreateInitialState()
         {
-            Debug.Log($"CreateInitialState called - mainPage: {mainPage?.name ?? "null"}, creditsPage: {creditsPage?.name ?? "null"}, settingsPage: {settingsPage?.name ?? "null"}");
-            
+
             if (mainPage == null)
             {
                 Debug.LogError("Main page is not set in MainMenuFlowController");

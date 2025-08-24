@@ -1,4 +1,5 @@
 #nullable enable
+using Game.MainMenu.Credits;
 using Game.UI;
 using Ludo.Core;
 using Ludo.Scenes;
@@ -13,10 +14,10 @@ namespace Game.MainMenu
     internal sealed class HomeState : FlowState<MainMenuEvent>
     {
         private readonly GameObject _main;
-        private readonly UIPopup _credits;
+        private readonly UICreditsPanel _credits;
         private readonly UIPopup _settings;
 
-        public HomeState(MainMenuFlowController controller, GameObject main, UIPopup credits, UIPopup settings)
+        public HomeState(MainMenuFlowController controller, GameObject main, UICreditsPanel credits, UIPopup settings)
             : base(controller)
         {
             Debug.Log("HomeState created");
