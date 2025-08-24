@@ -5,6 +5,7 @@ namespace Ludo.Audio
     public interface IAudioService
     {
         void PlayOneShot(AudioClip clip, float vol = 1);
+        void PlayOneShot(AudioClip clip, float vol = 1, float minPitch = 1.0f, float maxPitch = 1.0f);
         IAudioHandle PlayLoop(AudioClip clip, float vol = 1);
     }
 

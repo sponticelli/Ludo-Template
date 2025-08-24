@@ -67,6 +67,12 @@ namespace Ludo.Audio
         }
 
         /// <inheritdoc />
+        public void PlayOneShot(AudioClip clip, float vol = 1, float minPitch = 1.0f, float maxPitch = 1.0f)
+        {
+            PlayOneShot(clip, DefaultChannel, vol, minPitch, maxPitch);
+        }
+
+        /// <inheritdoc />
         public IAudioHandle PlayLoop(AudioClip clip, float vol = 1)
         {
             return PlayLoop(clip, DefaultChannel, vol);
@@ -81,10 +87,18 @@ namespace Ludo.Audio
         /// </summary>
         public void PlayOneShot(AudioClip clip, AudioChannel channel, float vol = 1)
         {
+            PlayOneShot(clip, channel, vol, 1.0f, 1.0f);
+        }
+
+        /// <summary>
+        /// Plays a one-shot audio clip on the specified channel with pitch randomization.
+        /// </summary>
+        public void PlayOneShot(AudioClip clip, AudioChannel channel, float vol = 1, float minPitch = 1.0f, float maxPitch = 1.0f)
+        {
             if (clip == null) return;
-            
+
             var channelVolume = _channelVolumes[channel];
-            _channels[channel].PlayOneShot(clip, vol * channelVolume);
+            _channels[channel].PlayOneShot(clip, vol * channelVolume, minPitch, maxPitch);
         }
 
         /// <summary>

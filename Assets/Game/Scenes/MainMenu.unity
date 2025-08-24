@@ -801,7 +801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _oneShotClip: {fileID: 8300000, guid: 3c1847c3504f5418ebecbfd3d13dc271, type: 3}
   _volume: 1
-  playOnStart: 1
+  playOnStart: 0
 --- !u!1 &1082176070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +1006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _oneShotClip: {fileID: 8300000, guid: 3c1847c3504f5418ebecbfd3d13dc271, type: 3}
   _volume: 1
-  playOnStart: 1
+  playOnStart: 0
 --- !u!1 &1272286866
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,7 +1167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _oneShotClip: {fileID: 8300000, guid: 1f8efc5991960428183162d87216491f, type: 3}
   _volume: 1
-  playOnStart: 1
+  playOnStart: 0
 --- !u!1 &1475571161
 GameObject:
   m_ObjectHideFlags: 0

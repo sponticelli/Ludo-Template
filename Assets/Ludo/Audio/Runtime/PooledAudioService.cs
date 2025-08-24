@@ -144,8 +144,9 @@ namespace Ludo.Audio
                 source.Stop();
                 source.clip = null;
                 source.volume = 1f;
+                source.pitch = 1f; // Reset pitch to default
                 source.gameObject.SetActive(false);
-                
+
                 // Return to pool
                 _availableAudioSources.Enqueue(source);
             }
@@ -159,6 +160,12 @@ namespace Ludo.Audio
         /// <inheritdoc />
         public void PlayOneShot(AudioClip clip, float vol = 1)
         {
+            PlayOneShot(clip, vol, 1.0f, 1.0f);
+        }
+
+        /// <inheritdoc />
+        public void PlayOneShot(AudioClip clip, float vol = 1, float minPitch = 1.0f, float maxPitch = 1.0f)
+        {
             if (clip == null) return;
 
             // Clean up finished one-shot sources before getting a new one
@@ -170,6 +177,17 @@ namespace Ludo.Audio
             source.clip = clip;
             source.volume = vol;
             source.loop = false;
+
+            // Apply pitch randomization if different min/max values are provided
+            if (Mathf.Approximately(minPitch, maxPitch))
+            {
+                source.pitch = minPitch;
+            }
+            else
+            {
+                source.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+            }
+
             source.Play();
 
             // Track this source with its end time

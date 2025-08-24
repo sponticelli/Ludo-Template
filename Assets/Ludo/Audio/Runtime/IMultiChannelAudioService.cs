@@ -22,6 +22,16 @@ namespace Ludo.Audio
         void PlayOneShot(AudioClip clip, AudioChannel channel, float vol = 1);
 
         /// <summary>
+        /// Plays a one-shot audio clip on the specified channel with pitch randomization.
+        /// </summary>
+        /// <param name="clip">Audio clip to play</param>
+        /// <param name="channel">Audio channel to play on</param>
+        /// <param name="vol">Volume multiplier (0-1)</param>
+        /// <param name="minPitch">Minimum pitch value for randomization (default: 1.0f)</param>
+        /// <param name="maxPitch">Maximum pitch value for randomization (default: 1.0f)</param>
+        void PlayOneShot(AudioClip clip, AudioChannel channel, float vol = 1, float minPitch = 1.0f, float maxPitch = 1.0f);
+
+        /// <summary>
         /// Plays a looping audio clip on the specified channel.
         /// </summary>
         /// <param name="clip">Audio clip to loop</param>
