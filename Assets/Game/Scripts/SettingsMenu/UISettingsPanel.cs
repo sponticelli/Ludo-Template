@@ -1,6 +1,6 @@
 using Game.UI;
 
-namespace Game.MainMenu.Settings
+namespace Game.SettingsMenu
 {
     public class UISettingsPanel : UIPopup
     {

@@ -32,11 +32,11 @@ namespace Game.MainMenu
             await sceneService.LoadAdditive("SettingsMenu");
         }
         
-        public override Awaitable Exit()
+        public override async Awaitable Exit()
         {
             Debug.Log("SettingsState exited");
-            _settings?.Hide();
-            return Awaitable.EndOfFrameAsync();
+            var sceneService = ServiceLocator.Get<ISceneService>();
+            await sceneService.Unload("SettingsMenu");
         }
 
         public override FlowState<MainMenuEvent>? Handle(MainMenuEvent evt)

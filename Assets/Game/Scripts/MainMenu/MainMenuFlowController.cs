@@ -1,6 +1,7 @@
 using Game.Core;
 using Game.MainMenu.Credits;
 using Game.UI;
+using Ludo.Core;
 using Ludo.Scenes.Flow;
 using UnityEngine;
 
@@ -17,6 +18,18 @@ namespace Game.MainMenu
         [SerializeField] private UICreditsPanel creditsPage;
   
 
+        protected async void Start()
+        {
+            ServiceLocator.Register<MainMenuFlowController>(this);
+            base.Start();
+            Debug.Log("MainMenuFlowController Start done");
+        }
+        
+        protected void OnDestroy()
+        {
+            ServiceLocator.Unregister<MainMenuFlowController>();
+        }
+        
         protected override FlowState<MainMenuEvent> CreateInitialState()
         {
 
