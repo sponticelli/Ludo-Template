@@ -10,7 +10,7 @@ namespace Ludo.Scenes.Flow
     [DisallowMultipleComponent]
     public abstract class SceneFlowController<TEvent> : MonoBehaviour where TEvent : struct
     {
-        readonly StateMachine<TEvent> _stateMachine = new StateMachine<TEvent>();
+        private readonly StateMachine<TEvent> _stateMachine = new StateMachine<TEvent>();
 
         /// <summary>
         /// Access to the underlying state machine, allowing nested flows to dispatch events.

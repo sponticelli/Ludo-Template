@@ -9,7 +9,7 @@ namespace Ludo.Scenes.Flow
     /// <typeparam name="TEvent">Type of events driving transitions.</typeparam>
     public class StateMachine<TEvent> where TEvent : struct
     {
-        FlowState<TEvent>? _current;
+        private FlowState<TEvent>? _current;
         private Awaitable? _transition; // ensures sequential transitions
 
         /// <summary>

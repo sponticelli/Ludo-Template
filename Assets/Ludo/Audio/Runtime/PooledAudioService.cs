@@ -22,20 +22,20 @@ namespace Ludo.Audio
         private readonly List<OneShotInstance> _oneShotSources = new(); // Track one-shot sources for cleanup
         private int _totalCreatedSources = 0;
 
-        sealed class OneShotInstance
+        private sealed class OneShotInstance
         {
             public AudioSource Source;
             public float EndTime; // Time when the clip finishes
         }
 
-        sealed class LoopInstance
+        private sealed class LoopInstance
         {
             public AudioSource Source;
             public float Volume;
             public bool IsPooled; // Track if this source came from the pool
         }
 
-        readonly List<LoopInstance> _activeLoops = new();
+        private readonly List<LoopInstance> _activeLoops = new();
 
         public PooledAudioService(PooledAudioServiceConfig config)
         {
@@ -226,7 +226,7 @@ namespace Ludo.Audio
         /// <summary>
         /// Releases a loop instance and returns its AudioSource to the pool if applicable.
         /// </summary>
-        void Release(LoopInstance inst)
+        private void Release(LoopInstance inst)
         {
             if (inst == null) return;
             
@@ -331,10 +331,10 @@ namespace Ludo.Audio
             return (_availableAudioSources.Count, _totalCreatedSources, _activeLoops.Count, _oneShotSources.Count);
         }
 
-        sealed class PooledLoopHandle : IVolumeControlledAudioHandle
+        private sealed class PooledLoopHandle : IVolumeControlledAudioHandle
         {
-            PooledAudioService _service;
-            LoopInstance _instance;
+            private PooledAudioService _service;
+            private LoopInstance _instance;
 
             public PooledLoopHandle(PooledAudioService service, LoopInstance instance)
             {
@@ -373,7 +373,7 @@ namespace Ludo.Audio
             }
         }
 
-        sealed class DummyHandle : IAudioHandle
+        private sealed class DummyHandle : IAudioHandle
         {
             public static readonly DummyHandle Instance = new DummyHandle();
             public bool IsPlaying => false;

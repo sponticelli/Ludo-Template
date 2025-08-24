@@ -850,6 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: menu_loading
+  fontSettings: {fileID: 11400000, guid: 10fd26f883eca4a278442dd2056144b2, type: 2}
   textField: {fileID: 1077832941}
 --- !u!1 &1557303214
 GameObject:

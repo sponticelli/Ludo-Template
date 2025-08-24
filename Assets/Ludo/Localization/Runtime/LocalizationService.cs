@@ -6,10 +6,10 @@ namespace Ludo.Localization
 {
     public sealed class LocalizationService : ILocalizationService
     {
-        readonly IEventHub _events; // optional, can be null
-        readonly Dictionary<string, LocalizedTable> _byLang = new();
-        readonly string _default;
-        string _current;
+        private readonly IEventHub _events; // optional, can be null
+        private readonly Dictionary<string, LocalizedTable> _byLang = new();
+        private readonly string _default;
+        private string _current;
 
         public string Current => _current;
         public string Default => _default;
@@ -65,7 +65,7 @@ namespace Ludo.Localization
             }
         }
 
-        bool TryGetFromLang(string lang, string key, out string value)
+        private bool TryGetFromLang(string lang, string key, out string value)
         {
             if (string.IsNullOrEmpty(lang))
             {
@@ -83,7 +83,7 @@ namespace Ludo.Localization
             return table.TryGet(key, out value);
         }
 
-        static string Base(string code)
+        private static string Base(string code)
         {
             // "it-IT" -> "it"; "en" -> "en"
             if (string.IsNullOrEmpty(code)) return code;

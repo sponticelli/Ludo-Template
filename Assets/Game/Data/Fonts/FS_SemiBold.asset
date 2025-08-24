@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 144470a399e3496eb75e336745db4095, type: 3}
-  m_Name: LF_Light
+  m_Script: {fileID: 11500000, guid: e76be45ab4e1408598e8433836131cbc, type: 3}
+  m_Name: FS_SemiBold
   m_EditorClassIdentifier: 
-  defaultFont: {fileID: 11400000, guid: 976f8a2d9f1fd462dbcdbc1454f5b7d7, type: 2}
-  fontMappings: []
+  defaultFont: {fileID: 11400000, guid: b72603bf518db4bcab2f9c037608561b, type: 2}
+  customFonts: []

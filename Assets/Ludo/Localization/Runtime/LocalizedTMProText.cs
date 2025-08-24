@@ -6,7 +6,9 @@ namespace Ludo.Localization
 {
     public class LocalizedTMProText : MonoBehaviour
     {
+        [Header("Localization")]
         [SerializeField] private string key;
+        [SerializeField] private FontSettings fontSettings;
 
         [Header("References")]
         [SerializeField] private TMPro.TMP_Text textField;
@@ -38,11 +40,14 @@ namespace Ludo.Localization
             _eventHub = ServiceLocator.Get<IEventHub>();
             _localizationService = ServiceLocator.Get<ILocalizationService>();
         }
-        
-        void OnLanguageChanged(LanguageChangedEvent e) => Refresh();
-        public void Refresh() 
+
+        private void OnLanguageChanged(LanguageChangedEvent e) => Refresh();
+        public void Refresh()
         {
-            if (textField) textField.text = _localizationService.Get(key);
+            if (!textField) return;
+            
+            textField.text = _localizationService.Get(key);
+            textField.font = fontSettings.GetFont(_localizationService.Current);
         }
     }
 }
