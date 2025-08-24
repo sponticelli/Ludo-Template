@@ -15,9 +15,7 @@ namespace Game.MainMenu
         [Header("Pages")]
         [SerializeField] private GameObject mainPage;
         [SerializeField] private UICreditsPanel creditsPage;
-        [SerializeField] private UIPopup settingsPage;
-        
-        
+  
 
         protected override FlowState<MainMenuEvent> CreateInitialState()
         {
@@ -33,12 +31,8 @@ namespace Game.MainMenu
                 Debug.LogWarning("Credits page is not set in MainMenuFlowController");
             }
             
-            if (settingsPage == null)
-            {
-                Debug.LogWarning("Settings page is not set in MainMenuFlowController");
-            }
             
-            return new HomeState(this, mainPage, creditsPage, settingsPage);
+            return new HomeState(this, mainPage, creditsPage);
         }
 
         // Methods exposed for UI buttons

@@ -13,21 +13,18 @@ namespace Game.MainMenu
     {
         private readonly GameObject _main;
         private readonly UICreditsPanel _credits;
-        private readonly UIPopup _settings;
 
-        public CreditsState(MainMenuFlowController controller, GameObject main, UICreditsPanel credits, UIPopup settings)
+        public CreditsState(MainMenuFlowController controller, GameObject main, UICreditsPanel credits)
             : base(controller)
         {
             _main = main;
             _credits = credits;
-            _settings = settings;
         }
 
         public override Awaitable Enter()
         {
             _credits?.Show();
             _credits?.Initialize();
-            _settings?.ImmediateHide();
             return Awaitable.EndOfFrameAsync();
         }
         
@@ -40,7 +37,7 @@ namespace Game.MainMenu
         public override FlowState<MainMenuEvent>? Handle(MainMenuEvent evt)
         {
             if (evt == MainMenuEvent.Back)
-                return new HomeState((MainMenuFlowController)Controller, _main, _credits, _settings);
+                return new HomeState((MainMenuFlowController)Controller, _main, _credits);
             return this;
         }
     }

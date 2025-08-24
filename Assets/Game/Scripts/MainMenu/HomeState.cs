@@ -15,9 +15,8 @@ namespace Game.MainMenu
     {
         private readonly GameObject _main;
         private readonly UICreditsPanel _credits;
-        private readonly UIPopup _settings;
 
-        public HomeState(MainMenuFlowController controller, GameObject main, UICreditsPanel credits, UIPopup settings)
+        public HomeState(MainMenuFlowController controller, GameObject main, UICreditsPanel credits)
             : base(controller)
         {
             Debug.Log("HomeState created");
@@ -29,7 +28,6 @@ namespace Game.MainMenu
             
             _main = main;
             _credits = credits;
-            _settings = settings;
         }
 
         public override Awaitable Enter()
@@ -37,7 +35,6 @@ namespace Game.MainMenu
             Debug.Log("HomeState entered");
             _main?.SetActive(true);
             _credits?.ImmediateHide();
-            _settings?.ImmediateHide();
             return Awaitable.EndOfFrameAsync();
         }
 
@@ -53,9 +50,9 @@ namespace Game.MainMenu
                     return this;
                 }
                 case MainMenuEvent.ShowCredits:
-                    return new CreditsState((MainMenuFlowController)Controller, _main, _credits, _settings);
+                    return new CreditsState((MainMenuFlowController)Controller, _main, _credits);
                 case MainMenuEvent.ShowSettings:
-                    return new SettingsState((MainMenuFlowController)Controller, _main, _credits, _settings);
+                    return new SettingsState((MainMenuFlowController)Controller, _main, _credits);
             }
 
             return this;

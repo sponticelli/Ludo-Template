@@ -1,6 +1,8 @@
 #nullable enable
 using Game.MainMenu.Credits;
 using Game.UI;
+using Ludo.Core;
+using Ludo.Scenes;
 using Ludo.Scenes.Flow;
 using UnityEngine;
 
@@ -15,20 +17,19 @@ namespace Game.MainMenu
         private readonly UICreditsPanel _credits;
         private readonly UIPopup _settings;
 
-        public SettingsState(MainMenuFlowController controller, GameObject main, UICreditsPanel credits, UIPopup settings)
+        public SettingsState(MainMenuFlowController controller, GameObject main, UICreditsPanel credits)
             : base(controller)
         {
             _main = main;
             _credits = credits;
-            _settings = settings;
         }
 
-        public override Awaitable Enter()
+        public override async Awaitable Enter()
         {
             Debug.Log("SettingsState entered");
             _credits?.ImmediateHide();
-            _settings?.Show();
-            return Awaitable.EndOfFrameAsync();
+            var sceneService = ServiceLocator.Get<ISceneService>();
+            await sceneService.LoadAdditive("SettingsMenu");
         }
         
         public override Awaitable Exit()
@@ -41,7 +42,7 @@ namespace Game.MainMenu
         public override FlowState<MainMenuEvent>? Handle(MainMenuEvent evt)
         {
             if (evt == MainMenuEvent.Back)
-                return new HomeState((MainMenuFlowController)Controller, _main, _credits, _settings);
+                return new HomeState((MainMenuFlowController)Controller, _main, _credits);
             return this;
         }
     }
