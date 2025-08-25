@@ -14,6 +14,8 @@ namespace Game.SettingsMenu
             // TODO 
             
             // Fade in Panel
+            
+            return new DisplayState(this);
         }
         
         
