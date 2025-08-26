@@ -7,6 +7,7 @@ using Ludo.Scenes;
 using UnityEngine;
 using System;
 using Ludo.Audio;
+using Ludo.Settings.Runtime;
 
 namespace Game.Core
 {
@@ -46,8 +47,11 @@ namespace Game.Core
         {
             var eventHub = new EventHub();
             ServiceLocator.Register<IEventHub>(eventHub);
+            
+            var settingsService = new SettingsService();
+            ServiceLocator.Register<ISettingsService>(settingsService);
 
-            var localizationService = new LocalizationService(eventHub, "en", globalConfig.LocalizationTables);
+            var localizationService = new LocalizationService(eventHub, settingsService.Language, globalConfig.LocalizationTables);
             ServiceLocator.Register<ILocalizationService>(localizationService);
 
             ServiceLocator.Register<ISceneService>(new SceneService());
