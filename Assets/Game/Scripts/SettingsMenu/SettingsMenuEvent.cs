@@ -4,7 +4,6 @@ namespace Game.SettingsMenu
     {
         Display,
         Sound,
-        Language,
-        Other 
+        Language
     }
 }

@@ -18,7 +18,7 @@ namespace Game.UI
         
         protected bool IsVisible => _canvasGroup.alpha > 0;
         
-        private void Awake()
+        protected virtual void Awake()
         {
             if (_canvasGroup == null) _canvasGroup = GetComponent<CanvasGroup>();
             if (_backgroundImage == null) _backgroundImage = GetComponent<Image>();
@@ -41,7 +41,7 @@ namespace Game.UI
             _canvasGroup.interactable = false;
         }
         
-        public void Show()
+        public virtual void Show()
         {
             Debug.Log("Show popup");
             _canvasGroup.alpha = 0;
@@ -52,7 +52,7 @@ namespace Game.UI
             StartCoroutine(ShowCoroutine());
         }
         
-        public void Hide()
+        public virtual void Hide()
         {
             _canvasGroup.alpha = 1;
             _canvasGroup.interactable = false;
