@@ -30,6 +30,12 @@ namespace Game.Core
         
         public void OnServiceInstalled()
         {
+            if (!ServiceLocator.Exist<ISceneController>())
+            {
+                Debug.LogError("[CoreSceneManager] SceneController not found!");
+                return;
+            }
+            
             var sceneController = ServiceLocator.Get<ISceneController>();
             sceneController.MarkSceneAsUnloadable(SceneDatabase.Core);
             sceneController.Execute(SceneTransitionPlan.Begin()
