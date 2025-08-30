@@ -14,43 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   languageCode: en
   entries:
-  - key: menu_loading
-    value: loading...
-  - key: mainmenu_play
-    value: PLAY
-  - key: credits_gamedesign
-    value: GAME DESIGN
-  - key: credits_artdirection
-    value: ART DIRECTION
-  - key: credits_code
-    value: CODE
-  - key: credits_sound
-    value: SOUNDS
-  - key: credits_music
-    value: MUSIC
-  - key: credits_family
-    value: THANKS TO MY FAMILY
-  - key: credits_andyou
-    value: 'AND A SPECIAL THANK TO:'
-  - key: menu_options_category_display
-    value: Display
-  - key: menu_options_category_sounds
-    value: Sounds
-  - key: menu_options_category_language
-    value: Language
-  - key: menu_options_resolution
-    value: Resolution
-  - key: menu_options_windowmode
-    value: Window Mode
-  - key: menu_options_vsync
-    value: VSync
-  - key: menu_options_quality
-    value: Quality
-  - key: menu_options_batterysaver
-    value: Battery Saver
-  - key: menu_options_uiscale
-    value: UI Scale
-  - key: menu_options_button_reset_visual_changes
-    value: RESET CHANGES
-  - key: menu_options_button_apply_visual_changes
-    value: APPLY CHANGES
+  - key: 
+    value: 
