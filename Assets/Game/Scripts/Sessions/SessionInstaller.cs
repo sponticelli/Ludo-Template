@@ -42,7 +42,6 @@ namespace Game.Sessions
             ServiceLocator.Unregister<ISettingsService>();
             ServiceLocator.Unregister<IUserManager>();
             ServiceLocator.Unregister<ICurrencyManager>();
-            
         }
     }
 }
